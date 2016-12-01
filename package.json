@@ -1,0 +1,25 @@
+{
+  "name": "the-voice-front-end",
+  "version": "1.0.0",
+  "description": "Front End of The Voice Ethereum Project at ECE",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PJanko/the-voice-front-end.git"
+  },
+  "keywords": [
+    "ethereum",
+    "blockchain",
+    "ECE",
+    "voice"
+  ],
+  "author": "Pierre Jankowiez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PJanko/the-voice-front-end/issues"
+  },
+  "homepage": "https://github.com/PJanko/the-voice-front-end#readme"
+}
