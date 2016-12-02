@@ -4,7 +4,7 @@
 // Dependencies
 // NgRoute to support client side navigational routing 
 ///////////////////////////////////////////////////////////////////////////////////////////
-angular.module("TheVoice", ["ngRoute"]);
+angular.module("TheVoice", ["ngRoute", "ngYoutubeEmbed"]);
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 // Client Side Routing Configuration of Route Provider
@@ -18,7 +18,7 @@ angular.module("TheVoice").config(["$routeProvider", function($routeProvider) {
         templateUrl : "home.html",
         controller  : "HomeController"
       }).
-      when("/singer/", {
+      when("/singers/:id", {
         templateUrl : "singer.html",
         controller  : "SingerController"
       }).

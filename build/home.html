@@ -5,7 +5,7 @@
 		<div class="row">
 			<section ng-repeat="singer in singers" class="4u 12u(narrower) feature">
 				<div class="image-wrapper first">
-					<a href="/singers/{{singer.id}}" class="image featured first"><img src="{{singer.thumbnail}}" alt="{{singer.name}}" /></a>
+					<a href="#/singers/{{singer.id}}" class="image featured first"><img ng-src="{{singer.thumbnail}}" alt="{{singer.name}}" /></a>
 				</div>
 			</section>
 		</div>
