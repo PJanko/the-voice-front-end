@@ -45129,7 +45129,13 @@ angular.module("TheVoice").controller("SingerController", ["$scope", "$rootScope
 	$scope.height = 360*window.innerWidth/640;
 	$scope.width = window.innerWidth;
 
-	console.log($scope.singer);
+	$scope.vote = function() {
+		if($scope.amount == null || $scope.secret == null) throw new Error('Impossible de voter - Montant et/ou Secret vide');
+		
+		EthereumFactory.voteForSinger($scope.singer, $scope.amount, $scope.secret);
+
+	}
+
 
 }]);
 
@@ -45237,9 +45243,13 @@ angular.module("TheVoice").factory("EthereumFactory", function(){
 			});
 		},
 
+		voteForSinger : function(singer, secret, amount) {
+
+		},
+
 		// Créer un nouveau singer dans la blockchain
 		createNewSinger : function(secret, amount) {
-			
+
 		},
 
 	}		   

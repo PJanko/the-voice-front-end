@@ -8,35 +8,27 @@
 		<div id="footer" class="container">
 			
 			<div class="row">
-				<section class="6u 12u(narrower)">
+				<section class="8u 12u(narrower)">
 					<div class="row 0%">
-						<ul class="divided icons 6u 12u(mobile)">
-							<li class="icon fa-twitter"><a href="#"><span class="extra">twitter.com/</span>untitled</a></li>
-							<li class="icon fa-facebook"><a href="#"><span class="extra">facebook.com/</span>untitled</a></li>
-							<li class="icon fa-dribbble"><a href="#"><span class="extra">dribbble.com/</span>untitled</a></li>
-						</ul>
-						<ul class="divided icons 6u 12u(mobile)">
-							<li class="icon fa-instagram"><a href="#"><span class="extra">instagram.com/</span>untitled</a></li>
-							<li class="icon fa-youtube"><a href="#"><span class="extra">youtube.com/</span>untitled</a></li>
-							<li class="icon fa-pinterest"><a href="#"><span class="extra">pinterest.com/</span>untitled</a></li>
-						</ul>
+						<div class="12u">
+							<h1>{{singer.name}}</h1>
+							<p>{{singer.description}}</p>
+							<br/>
+							<ul class="icons">
+								<li class="icon fa-youtube"><a href="{{singer.url}}"><span class="extra">youtube.com/</span>{{singer.name}}</a></li>
+							</ul>
+						</div>
 					</div>
 				</section>
-				<section class="6u 12u(narrower)">
-					<form method="post" action="#">
-						<div class="row 50%">
-							<div class="6u 12u(mobile)">
-								<input name="secret" placeholder="Secret" type="password" />
-							</div>
-							<div class="6u 12u(mobile)">
-								<input name="amount" placeholder="Amount" type="text" />
-							</div>
-						</div>
-						<div class="row 50%">
+				<section class="4u 12u(narrower)">
+					<form ng-submit="vote()" >
+						<div class="row 0%">
 							<div class="12u">
+								<input name="secret" placeholder="Secret" ng-model="secret" type="password" />
+								<input name="amount" placeholder="Montant (ETH)" ng-model="amount" type="text" />
+							
 								<ul class="actions">
-									<li><input type="submit" value="Vote" /></li>
-									<li><input type="reset" value="Clear form" /></li>
+									<li><input type="submit" value="Voter pour {{singer.name}}!!" /></li>
 								</ul>
 							</div>
 						</div>
