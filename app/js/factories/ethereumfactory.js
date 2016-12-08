@@ -59,12 +59,17 @@ var db = {
 // Ethereum Factory
 ///////////////////////////////////////////////////////////////////////////////
 angular.module("TheVoice").factory("EthereumFactory", function(){
-	
+
 	var _factory = {
 
 		getCampaign : function(){
-			
+
 		},
+
+		getUsers : function(){
+
+		},
+
 
 		// Récupère tous les Singers pour une campagne
 		getSingers : function() {
@@ -80,7 +85,7 @@ angular.module("TheVoice").factory("EthereumFactory", function(){
 		},
 
 		voteForSinger : function(singer, secret, amount) {
-			
+
 		},
 
 		// Créer un nouveau singer dans la blockchain
@@ -88,8 +93,13 @@ angular.module("TheVoice").factory("EthereumFactory", function(){
 
 		},
 
-	}		   
-	
+		// Créer un nouveau singer dans la blockchain
+		createNewUser : function(secret, amount) {
+
+		},
+
+	}
+
 
 	return _factory;
 

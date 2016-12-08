@@ -2,7 +2,7 @@
 // Angular Module Declaration For the application
 ///////////////////////////////////////////////////////////////////////////////////////////
 // Dependencies
-// NgRoute to support client side navigational routing 
+// NgRoute to support client side navigational routing
 ///////////////////////////////////////////////////////////////////////////////////////////
 angular.module("TheVoice", ["ngRoute", "ngYoutubeEmbed"]);
 
@@ -17,12 +17,17 @@ angular.module("TheVoice").config(["$routeProvider", function($routeProvider) {
       when("/", {
         templateUrl : "home.html",
         controller  : "HomeController"
-      }).
-      when("/singers/:id", {
+      })
+      .when("/form", {
+        templateUrl : "form.html",
+        controller  : "FormController"
+      })
+      .when("/singers/:id", {
         templateUrl : "singer.html",
         controller  : "SingerController"
-      }).
-      otherwise({
+      })
+
+      .otherwise({
         redirectTo: "/"
       });
 

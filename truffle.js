@@ -3,6 +3,8 @@ module.exports = {
     "index.html": "index.html",
     "home.html": "home.html",
     "singer.html": "singer.html",
+    "form.html": "form.html",
+
 
     "app.js": [
       "js/vendors/jquery.min.js",
@@ -17,6 +19,7 @@ module.exports = {
       "js/app.js",
       "js/controllers/homecontroller.js",
       "js/controllers/singercontroller.js",
+      "js/controllers/formcontroller.js",
       "js/factories/toolfactory.js",
       "js/factories/ethereumfactory.js"
     ],
