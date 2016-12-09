@@ -3,7 +3,7 @@
 // Tool Factory
 ///////////////////////////////////////////////////////////////////////////////
 angular.module("TheVoice").factory("ToolFactory", function(){
-	
+
 	var _factory = {
 
 		getYoutubeThumbnail : function(id){
@@ -15,11 +15,13 @@ angular.module("TheVoice").factory("ToolFactory", function(){
 		},
 
 		getYoutubeID : function(url) {
-			return url;
+			var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+	    var match = url.match(regExp);
+	    return (match&&match[7].length==11)? match[7] : false;
 		}
 
-	}		   
-	
+	}
+
 
 	return _factory;
 
