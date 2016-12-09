@@ -89,14 +89,19 @@ angular.module("TheVoice").factory("EthereumFactory", function(){
 		},
 
 		// Créer un nouveau singer dans la blockchain
-		createNewSinger : function(secret, amount) {
+		createNewSinger : function(nom, id, description) {
+			var compet = Competition.deployed();
+
+			//compet.AddArti
+		},
+
+		createCompetition : function() {
 
 		},
 
-		// Créer un nouveau singer dans la blockchain
-		createNewUser : function(secret, amount) {
+		createFactory: function() {
 
-		},
+		}
 
 	}
 

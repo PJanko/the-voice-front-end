@@ -14,6 +14,10 @@ angular.module("TheVoice").factory("ToolFactory", function(){
 			return 'https://www.youtube.com/watch?v='+id;
 		},
 
+		getYoutubeID : function(url) {
+			return url;
+		}
+
 	}		   
 	
 

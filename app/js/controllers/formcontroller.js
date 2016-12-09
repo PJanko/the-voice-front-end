@@ -9,14 +9,11 @@ angular.module("TheVoice").controller("FormController", ["$scope", "$rootScope",
 	///////////////////////////////////////////////////////////////////////
 	// Initialisation Code for Form Controller
 	///////////////////////////////////////////////////////////////////////
-  $scope.username = username;
-  $scope.url = url;
-  $scope.description = description;
 
-  console.log($scope.username);
-  console.log($scope.url);
-  console.log($scope.description);
-
+  $scope.register = function() {
+    var id = ToolFactory.getYoutubeID($scope.url);
+    EthereumFactory.createNewSinger($scope.username, id, $scope.description);
+  } 
 
 
 }]);
