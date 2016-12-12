@@ -48,9 +48,19 @@ window.onload = function() {
     }
 
     accounts = accs;
-    account = accounts[0];
 
-    console.log(accounts);
+
+    var meta = CompetitionFactory.deployed();
+
+    meta.getAdmin().then(function() {
+      console.log("good");
+    }).catch(function(e) {
+      console.log("bad");
+      setStatus("Error sending coin; see log.");
+    });
+
+
+    //console.log(accounts);
 
   });
 }

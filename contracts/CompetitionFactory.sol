@@ -12,7 +12,7 @@ contract CompetitionFactory {
         _;
     }       
     
-    function CompetitionFactory() isAdmin{
+    function CompetitionFactory(){
         admin = msg.sender;
     }
     
@@ -25,6 +25,9 @@ contract CompetitionFactory {
     }
     function getCurrentBalance(uint _index) constant returns(uint) { 
         return competitions[_index].getBalance();
+    }
+    function getAdmin() constant returns(address){
+        return(admin);
     }
 }
     
