@@ -13,7 +13,7 @@ angular.module("TheVoice").controller("FormController", ["$scope", "$rootScope",
   $scope.register = function() {
     var id = ToolFactory.getYoutubeID($scope.url);
     EthereumFactory.createNewSinger($scope.username, id, $scope.description);
-  } 
+  }
 
 
 }]);
