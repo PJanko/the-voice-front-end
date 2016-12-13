@@ -7,8 +7,8 @@ contract Competition {
     uint public deadline_secret;
     uint public starttime;
     uint public balance_total;
-    uint balance_max;
-    uint artist_gagnant;
+    uint public balance_max;
+    uint public artist_gagnant;
     
     bool closed;
     mapping(address=>bool) address_artists; // Mapping : couple clé valeur 
@@ -35,39 +35,40 @@ contract Competition {
         uint amount;
         bool confirm;
         uint artist_decrypter;
+        bool retirer;
     }
     
     
     modifier afterDeadlineParier(){
-        if(now< deadline_parier) return;
+        //if(now< deadline_parier) return;
         _;
     }
     modifier beforeDeadlineParier(){
-        if(now> deadline_parier) return;
+        //if(now> deadline_parier) return;
         _;
     }
     modifier afterDeadlineSecret(){
-        if(now< deadline_secret) return;
+        //if(now< deadline_secret) return;
         _;
     }
     modifier beforeDeadlineSecret(){
-        if(now> deadline_secret) return;
+        //if(now> deadline_secret) return;
         _;
     }
     modifier isClosed(){
-        if (closed==false) return;
+        //if (closed==false) return;
         _;
     }
     modifier isNotClosed(){
-        if (closed==true) return;
+        //if (closed==true) return;
         _;
     }
     modifier isStarted(){
-        if (now<starttime) return;
+        //if (now<starttime) return;
         _;
     }   
     modifier isNotStarted(){
-        if (now>starttime) return;
+        //if (now>starttime) return;
         _;
     }
     
@@ -90,8 +91,13 @@ contract Competition {
     }
     
     function Parier(bytes32 _hash) payable isStarted beforeDeadlineParier{ // pour le moment hash est l'index de l'artiste
-        encrypted_vote[msg.sender].push(Vote(_hash,msg.value,false,0));
+        encrypted_vote[msg.sender].push(Vote(_hash,msg.value,false,0,false));
         balance_total+=msg.value;
+    }
+    
+    // fonction juste pour nos tests
+    function getHash(string _secret, string nom_artist) returns(bytes32){
+        return(sha3(_secret, nom_artist));
     }
     
     function DecrypteVote(string _secret, string nom_artist) afterDeadlineParier beforeDeadlineSecret{
@@ -115,21 +121,24 @@ contract Competition {
         closed = true;
         compte[admin]= this.balance*2 /100;
         balance_total -= compte[admin];
-
+        uint temp = 0;
         for(uint i = 0; i < artists.length; i++){
             if(i == artist_gagnant){
-                compte[artists[artist_gagnant].owner]=artists[artist_gagnant].balance*98 /100;
-                balance_total -= compte[artists[artist_gagnant].owner];
+                temp = artists[artist_gagnant].balance*98 /100;
+                compte[artists[artist_gagnant].owner]=temp;
+                balance_total = balance_total - temp;   // balance_total -= compte[artists[artist_gagnant].owner];
             }
             else{
-                compte[artists[i].owner]=artists[i].balance*8 /100;
-                balance_total -= compte[artists[i].owner];
+                temp = artists[i].balance*8 /100;
+                compte[artists[i].owner] = temp;
+                balance_total = balance_total - temp;   // balance_total -= compte[artists[i].owner];
             }
         }
     }
     
     function TakeRewardArtist() isClosed{
-        if(msg.sender != artists[artist_gagnant].owner) throw;
+        if(msg.sender != artists[artist_gagnant].owner || compte[msg.sender]==0) throw;
+        compte[msg.sender]=0;
         if(!msg.sender.send(compte[msg.sender])){
             throw;
         } 
@@ -137,9 +146,10 @@ contract Competition {
     
     function TakeRewardParieur() isClosed{
         Vote[] votes = encrypted_vote[msg.sender];
-
+        
         for(uint i = 0; i < votes.length; i++){
-            if(votes[i].artist_decrypter == artist_gagnant) {
+            if(votes[i].artist_decrypter == artist_gagnant && votes[i].retirer == false) {
+                votes[i].retirer = true;
                 uint temp = votes[i].amount;
                 uint gain = (votes[i].amount/balance_max) * balance_total;
                 if(!msg.sender.send(gain)){
@@ -149,15 +159,25 @@ contract Competition {
         }
     }
     
-    function getArtist (uint _index) returns(string){
-        return(artists[0].nom);
+    function getArtist (uint _index) constant returns(string,string,string){
+        Artist art = artists[_index];
+        return(art.nom,art.description,art.url);
     }
     
     function getBalance() constant returns(uint){
-        return balance_total;
+        return this.balance;
     }
     
     function getNumberArtists() constant returns(uint){
         return (artists.length);
     }   
+    
+    function getAmountWinner() constant returns(uint){
+        return (compte[artists[artist_gagnant].owner]);
+    }
+    
+    function getTabCompte() constant returns(uint,uint){
+        return (compte[artists[artist_gagnant].owner],compte[admin]);
+    }
 }
+    
