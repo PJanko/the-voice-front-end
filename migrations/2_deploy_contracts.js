@@ -1,3 +1,5 @@
 module.exports = function(deployer) {
-  deployer.deploy(CompetitionFactory);
+  deployer.deploy(ConvertLib);
+  deployer.autolink();
+  deployer.deploy(MetaCoin);
 };
