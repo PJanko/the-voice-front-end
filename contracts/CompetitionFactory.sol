@@ -36,6 +36,7 @@ contract CompetitionFactory {
         return 1;
     }
 
+<<<<<<< HEAD
 
     function testcomp() returns(uint){
         return competitions.length;
@@ -48,5 +49,7 @@ contract CompetitionFactory {
     function testreturn() returns(uint){
         return (42);
     }
+=======
+>>>>>>> 67c9b79d3065369d57bc402727562cec049e1957
 }
     

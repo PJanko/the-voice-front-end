@@ -87,6 +87,14 @@ angular.module("TheVoice").factory("EthereumFactory", function(){
 		voteForSinger : function(singer, secret, amount) {
 
 		},
+				showNewSinger : function() {
+					competition.getArtist.call(0,{ from: accounts[0],gas:50000 }).then(function(nb) {
+							console.log("artist");
+							//console.log(nb);
+						}).catch(function(e) {
+						console.log(e);
+					});
+				},
 
 		showNewSinger : function() {
 			var factory= CompetitionFactory.deployed();
@@ -141,6 +149,7 @@ angular.module("TheVoice").factory("EthereumFactory", function(){
 
 		// Créer un nouveau singer dans la blockchain
 		createNewSinger : function(nom, id, description) {
+
     		var factory= CompetitionFactory.deployed();
 		    //factory.testadd({ from: accounts[0],gas:500000}).then(function(a) {
 
@@ -216,9 +225,6 @@ angular.module("TheVoice").factory("EthereumFactory", function(){
 
 		      	console.log(e);
 		    });*/
-
-
-
 		},
 
 		createCompetition : function() {

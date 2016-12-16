@@ -14,6 +14,7 @@ angular.module("TheVoice").controller("FormController", ["$scope", "$rootScope",
     var id = ToolFactory.getYoutubeID($scope.url);
     EthereumFactory.createNewSinger($scope.username, id, $scope.description);
 
+
   }
 	$scope.show = function() {
     EthereumFactory.showNewSinger();
