@@ -1,6 +1,5 @@
 pragma solidity ^0.4.2;
 
-
 import "./Competition.sol";
 
 contract CompetitionFactory {
@@ -12,7 +11,7 @@ contract CompetitionFactory {
         _;
     }       
     
-    function CompetitionFactory(){
+    function CompetitionFactory() {
         admin = msg.sender;
     }
     
@@ -26,8 +25,14 @@ contract CompetitionFactory {
     function getCurrentBalance(uint _index) constant returns(uint) { 
         return competitions[_index].getBalance();
     }
-    function getAdmin() constant returns(address){
-        return(admin);
+    
+    function getCompetition(uint _index) returns(Competition){
+        return competitions[_index];
     }
+
+    function test() returns(uint){
+        return 1;
+    }
+
 }
     
