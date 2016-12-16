@@ -15,5 +15,7 @@ angular.module("TheVoice").controller("HomeController", ["$scope", "$rootScope",
 	$scope.singers.forEach(function(singer) {
 		singer.thumbnail = ToolFactory.getYoutubeThumbnail(singer['video-id']);
 	});
+
+	$scope.addCompetition = EthereumFactory.createCompetition;
 	
 }]);

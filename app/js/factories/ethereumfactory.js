@@ -67,7 +67,7 @@ angular.module("TheVoice").factory("EthereumFactory", function(){
 		},
 
 		getUsers : function(){
-
+			return accounts.slice(1);
 		},
 
 
@@ -96,11 +96,13 @@ angular.module("TheVoice").factory("EthereumFactory", function(){
 		},
 
 		createCompetition : function() {
+			var meta = CompetitionFactory.deployed();
 
+			meta.addCompetition(Date.now(), Date.now());
 		},
 
-		createFactory: function() {
-
+		getAdmin: function() {
+			return accounts.slice(0,1);
 		}
 
 	}

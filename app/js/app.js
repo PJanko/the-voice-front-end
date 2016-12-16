@@ -51,7 +51,7 @@ window.onload = function() {
 
 
     var meta = CompetitionFactory.deployed();
-
+    console.log(meta);
     meta.getAdmin().then(function() {
       console.log("good");
     }).catch(function(e) {
