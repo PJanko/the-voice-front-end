@@ -38,6 +38,7 @@ angular.module("TheVoice").config(["$routeProvider", function($routeProvider) {
 
 
 window.onload = function() {
+
   web3.eth.getAccounts(function(err, accs) {
     if (err != null) {
       console.log(err);
@@ -61,18 +62,32 @@ window.onload = function() {
 
 
   factory= CompetitionFactory.deployed();
-  competition = Competition.deployed();
+  console.log(factory);
 
+  factory.getTest.call().then(function(res) {
+    console.log(res);
+  }); 
 
+  var filter = web3.eth.filter('pending');
 
-    var meta = CompetitionFactory.deployed();
-    //console.log(meta);
+  filter.watch(function (error, log) {
+    console.log('pending '+ log); //  {"address":"0x0000000000000000000000000000000000000000", "data":"0x0000000000000000000000000000000000000000000000000000000000000000", ...}
+  });
 
+  var finish = web3.eth.filter('latest');
 
-    //var temp = meta.AddCompetition.call(1,1,1,{ from: accounts[0] }).then(function() {
+  finish.watch(function (error, log) {
+    console.log('latest '+ log); //  {"address":"0x0000000000000000000000000000000000000000", "data":"0x0000000000000000000000000000000000000000000000000000000000000000", ...}
+  });
 
-    var meta2 = Competition.deployed();
+   /*var promise = factory.AddCompetition.sendTransaction(1,10,15,{ from: accounts[0], gas: 5000000 }).then(function(hash) {
+      console.log('transaction hash ' +hash);
+      
+    }).catch(function(e) {
+      console.log(e);
+    });*/
 
+  
   /*  meta2.AddArtist.call("lol","lol","lol",{ from: accounts[0],gas:500000 }).then(function() {
       console.log("added");
       meta2.getNumberArtists.call({ from: accounts[0],gas:500000 }).then(function(nb) {
