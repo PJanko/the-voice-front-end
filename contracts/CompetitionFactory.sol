@@ -29,5 +29,10 @@ contract CompetitionFactory {
     function getCompetition(uint _index) returns(Competition){
         return competitions[_index];
     }
+
+    function test() returns(uint){
+        return 1;
+    }
+
 }
     
