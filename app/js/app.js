@@ -1,3 +1,4 @@
+
 var factory;
 var competition;
 
@@ -36,6 +37,28 @@ angular.module("TheVoice").config(["$routeProvider", function($routeProvider) {
 
 }]);
 
+function test(){
+  /*var factory = CompetitionFactory.deployed();
+  factory.testcomp.call({ from: accounts[0],gas:500000 }).then(function(o) {
+    console.log("good");
+    console.log(o.valueOf());
+    }).catch(function(e) {
+    console.log(e);
+  });*/
+  var comp1 = Competition.at(competition);
+};
+
+function refreshBalance() {
+  var factory = CompetitionFactory.deployed();
+
+  factory.getCompetition(0,{ from: accounts[3],gas:500000 }).then(function(value) {
+    console.log(value.valueOf());
+    competition = value.valueOf();
+    test();
+  }).catch(function(e) {
+    console.log(e);
+  });
+};
 
 window.onload = function() {
 
@@ -52,87 +75,18 @@ window.onload = function() {
     }
 
     accounts = accs;
+    account = accounts[1];
 
-    /*meta.AddCompetition(1,1,1).then(function() {
-      console.log("good");
-    }).catch(function(e) {
-      console.log("bad");
-      setStatus("Error sending coin; see log.");
-    });*/
-
-
-  factory= CompetitionFactory.deployed();
-  console.log(factory);
-
-  factory.getTest.call().then(function(res) {
-    console.log(res);
-  }); 
-
-  var filter = web3.eth.filter('pending');
-
-  filter.watch(function (error, log) {
-    console.log('pending '+ log); //  {"address":"0x0000000000000000000000000000000000000000", "data":"0x0000000000000000000000000000000000000000000000000000000000000000", ...}
-  });
-
-  var finish = web3.eth.filter('latest');
-
-  finish.watch(function (error, log) {
-    console.log('latest '+ log); //  {"address":"0x0000000000000000000000000000000000000000", "data":"0x0000000000000000000000000000000000000000000000000000000000000000", ...}
-  });
-
-   /*var promise = factory.AddCompetition.sendTransaction(1,10,15,{ from: accounts[0], gas: 5000000 }).then(function(hash) {
-      console.log('transaction hash ' +hash);
-      
-    }).catch(function(e) {
-      console.log(e);
-    });*/
-
-  
-  /*  meta2.AddArtist.call("lol","lol","lol",{ from: accounts[0],gas:500000 }).then(function() {
-      console.log("added");
-      meta2.getNumberArtists.call({ from: accounts[0],gas:500000 }).then(function(nb) {
-        console.log(nb.valueOf());
-      }).catch(function(e) {
+    var factory = CompetitionFactory.deployed();
+    var test_result = 2;
+    factory.AddCompetition(1,10,15,{ from: accounts[0],gas:5000000}).then(function(a) {
+      console.log("1");
+      console.log(a);
+      console.log("-----------------");
+    }).catch(function(e){
         console.log(e);
-      });
-    }).catch(function(e) {
-      console.log(e);
-    });*/
-
-
-      /*var lol = meta.test.call({from: accounts[0]}).then(function(value) {
-        console.log("brut " + value);
-        console.log(value);
-        var temp =  value.valueOf();
-        console.log("valueOf " +temp);
-
-      }).catch(function(e) {
-        console.log(e);
-      });*/
-
-      /*meta.getCompetition.call(0,{ from: accounts[0],gas:50000 }).then(function(comp) {
-        comp.getNumberArtists.call({ from: accounts[0],gas:50000 }).then(function(nb) {
-          console.log(nb.valueOf());
-        }).catch(function(e) {
-        console.log(e);
-      });
-      }).catch(function(e) {
-        console.log("fail get comp");
-      });*/
-
-
-      //var comp = meta.getCompetition.call(0,{ from: accounts[0],gas:50000 }).then(function() {
-      //var lol = meta.test.call({ from: accounts[0],gas:50000 }).then(function() {
-
-
-
-    //1console.log(meta.test());
-    //var meta2 = Test.new({ from: accounts[0] });
-
-    //var result = meta.test();
+    });
 
   });
-
-
-
 }
+

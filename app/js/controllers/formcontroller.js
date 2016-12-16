@@ -17,9 +17,7 @@ angular.module("TheVoice").controller("FormController", ["$scope", "$rootScope",
 
   }
 	$scope.show = function() {
-    var id = ToolFactory.getYoutubeID($scope.url);
     EthereumFactory.showNewSinger();
-
 
   }
 }]);

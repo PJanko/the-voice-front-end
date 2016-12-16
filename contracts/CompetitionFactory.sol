@@ -1,20 +1,19 @@
 pragma solidity ^0.4.2;
 
-import "./Competition.sol";
 
+import "./Competition.sol";
 contract CompetitionFactory {
     address admin;
     Competition[] competitions;
-    uint test;
-    
+    uint temp;
+
     modifier isAdmin(){
-        if (msg.sender!=admin) return;
+        //if (msg.sender!=admin) return;
         _;
     }       
     
     function CompetitionFactory() {
         admin = msg.sender;
-        test = 8;
     }
     
     function AddCompetition(uint _starttime,uint _deadline_parier, uint _deadline_secret) isAdmin{
@@ -32,5 +31,20 @@ contract CompetitionFactory {
         return competitions[_index];
     }
 
+    function test() returns(uint){
+        return 1;
+    }
+
+    function testcomp() returns(uint){
+        return competitions.length;
+    }    
+
+    function testadd() {
+        temp = temp + 2;
+    }         
+
+    function testreturn() returns(uint){
+        return (42);
+    }
 }
     
