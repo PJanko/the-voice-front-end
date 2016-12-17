@@ -4,6 +4,7 @@ module.exports = {
     "home.html": "home.html",
     "singer.html": "singer.html",
     "form.html": "form.html",
+    "admin.html": "admin.html",
 
 
     "app.js": [
@@ -20,6 +21,7 @@ module.exports = {
       "js/controllers/homecontroller.js",
       "js/controllers/singercontroller.js",
       "js/controllers/formcontroller.js",
+      "js/controllers/admincontroller.js",
       "js/factories/toolfactory.js",
       "js/factories/ethereumfactory.js"
     ],

@@ -58,13 +58,125 @@ var db = {
 ///////////////////////////////////////////////////////////////////////////////
 // Ethereum Factory
 ///////////////////////////////////////////////////////////////////////////////
-angular.module("TheVoice").factory("EthereumFactory", function(){
+angular.module("TheVoice").factory("EthereumFactory",['$window', function($window){
 
 	var _factory = {
 
-		getCampaign : function(){
-
+		getDeployedFactory : function(){
+			return CompetitionFactory.deployed();
 		},
+
+		getAccounts : function(cb) {
+			web3.eth.getAccounts(function(err, accs) {
+			    if (err != null) {
+		      		console.log(err);
+		      		alert("There was an error fetching your accounts.");
+		      		return cb(undefined);
+			    }
+			    if (accs.length == 0) {
+		      		alert("Couldn't get any accounts! Make sure your Ethereum client is configured correctly.");
+		      		return cb(undefined);
+			    }
+			    cb(accs);
+			});
+		},
+
+
+		createFactory : function(admin, cb) {
+			var promise = CompetitionFactory.new({from: admin, gas:5000000});
+			promise.then(function(instance) {
+				console.log(instance);
+				cb(null, instance);
+			}).catch(function(e) {
+				console.log(e);
+				cb(e);
+			});
+		},
+
+		createCompetition : function(admin, start, parier, end, cb ) {
+			// Récupère le contrat déployé avec truffle migrate
+			var factory = CompetitionFactory.deployed();
+			
+			factory.AddCompetition(start,parier,end,{ from: admin, gas: 5000000 }).then(function(instance) {
+			    console.log("compet ajoutée");
+			    console.log(instance);
+			    cb(null, instance);
+			  }).catch(function(e) {
+			    console.log(e);
+			    cb(e);
+			  });
+			
+		},
+
+		// Créer un résumé avec le nombre de compétitions dans le contrat et l'addresse de la dernière
+		getCompetitionsSummary : function(cb) {
+			// Récupère le contrat déployé avec truffle migrate
+			var factory = CompetitionFactory.deployed();
+
+			var promise = factory.getCompetitionsLength.call();
+			promise.then(function(instance) {
+				
+				var p = factory.getCompetition.call(instance.toNumber()-1);
+				p.then(function(inst) {
+					console.log('latest : '+inst);
+					var res = {address: inst, number: instance.toNumber()};
+					cb(null, res);
+				}).catch(function(e) {
+					console.log(e);
+				});
+
+				
+			}).catch(function(e) {
+				console.log(e);
+				cb(e);
+			});
+		},
+
+		// Récupère l'addresse de la dernière compétition (celle en cours)
+		getCurrentCompetitionAddress : function(cb) {
+			// Récupère le contrat déployé avec truffle migrate
+			var factory = CompetitionFactory.deployed();
+
+			var promise = factory.getCompetitionsLength.call();
+			promise.then(function(instance) {
+				
+				var p = factory.getCompetition.call(instance.toNumber()-1);
+				p.then(function(address) {
+					cb(null, address);
+				}).catch(function(e) {
+					console.log(e);
+				});
+
+			}).catch(function(e) {
+				console.log(e);
+				cb(e);
+			});
+		},
+
+		// Récupère la dernière compétition (celle en cours) 
+		getCurrentCompetition : function(cb) {
+
+			_factory.getCurrentCompetitionAddress(function(err, address) {
+				if(err) return cb(err);
+				var comp = Competition.at(address);
+				cb(null, comp);
+			});
+			
+		},
+
+
+		/*
+		 *
+		 *		LES FONCTIONS CI-DESSUS SONT LES NOUVELLES 
+		 *
+		 *	CONTINUER L'IMPLEMENTATION ICI
+		 * 		
+		 *		LES FONCTIONS CI-DESSOUS SONT LES ANCIENNES
+		 *
+		 *
+		 *
+		 */
+
 
 		getUsers : function(){
 			return accounts.slice(1);
@@ -87,14 +199,14 @@ angular.module("TheVoice").factory("EthereumFactory", function(){
 		voteForSinger : function(singer, secret, amount) {
 
 		},
-				showNewSinger : function() {
+				/*showNewSinger : function() {
 					competition.getArtist.call(0,{ from: accounts[0],gas:50000 }).then(function(nb) {
 							console.log("artist");
 							//console.log(nb);
 						}).catch(function(e) {
 						console.log(e);
 					});
-				},
+				},*/
 
 		showNewSinger : function() {
 			var factory= CompetitionFactory.deployed();
@@ -108,7 +220,7 @@ angular.module("TheVoice").factory("EthereumFactory", function(){
 
 				var comp1 = Competition.at(comp);
    
-				comp1.getNumberArtists.call({ from: accounts[2],gas:500000 }).then(function(o) {
+				comp1.getNumberArtists.call().then(function(o) {
 			      console.log("got");
 			      console.log(o.valueOf());
 
@@ -227,11 +339,11 @@ angular.module("TheVoice").factory("EthereumFactory", function(){
 		    });*/
 		},
 
-		createCompetition : function() {
+		/*createCompetition : function() {
 			var meta = CompetitionFactory.deployed();
 
 			meta.addCompetition(Date.now(), Date.now());
-		},
+		},*/
 
 		getAdmin: function() {
 			return accounts.slice(0,1);
@@ -243,4 +355,4 @@ angular.module("TheVoice").factory("EthereumFactory", function(){
 
 	return _factory;
 
-});
+}]);

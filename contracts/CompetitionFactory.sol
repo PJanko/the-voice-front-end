@@ -5,7 +5,6 @@ import "./Competition.sol";
 contract CompetitionFactory {
     address admin;
     Competition[] competitions;
-    uint temp;
 
     modifier isAdmin(){
         //if (msg.sender!=admin) return;
@@ -31,20 +30,8 @@ contract CompetitionFactory {
         return competitions[_index];
     }
 
-    function test() returns(uint){
-        return 1;
-    }
-
-    function testcomp() returns(uint){
+    function getCompetitionsLength() returns(uint){
         return competitions.length;
     }    
-
-    function testadd() {
-        temp = temp + 2;
-    }         
-
-    function testreturn() returns(uint){
-        return (42);
-    }
 }
     

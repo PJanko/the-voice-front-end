@@ -1,0 +1,43 @@
+<div id="footer-wrapper">
+  <div id="footer" class="col-md-6 col-md-offset-3 container">
+
+            <label for="accounts">Choisir l'adresse de l'administrateur</label>
+                <select name="accounts" ng-model="adminSelected">
+                    <option ng-repeat="account in accounts" value="{{account}}">{{account}}</option>
+                </select>
+        
+            <div class="form-group">
+                <h2>Nouvelle Factory</h2>
+                <p ng-if="exists">Attention, une factory existe déjà ! En créer une nouvelle detruira la fonctionnement de la précédente (juste pour la démo)</p>
+                <button ng-click="createFactory()" class="button btn btn-primary">Créer une nouvelle Factory</button>
+            </div>
+
+            <br>
+            <br>
+            
+            <div class="form-group" ng-if="exists">
+                <h2>Nouvelle Compétition</h2>
+                <p>Depuis la Factory existante</p>
+                <label for="inscrire">Choisir la date limite pour s'inscrire comme artiste</label>
+                <input type="date" name="inscrire" id="inscrire"><br>
+                <label for="vote">Choisir la date limite pour voter</label>
+                <input type="date" name="vote" id="vote"><br>
+                <label for="cloture">Choisir la date limite pour retirer son argent</label>
+                <input type="date" name="cloture" id="cloture">
+                <button ng-click="createCompetition()" class="button btn btn-primary">Créer une nouvelle compétition</button>
+            </div>
+
+            <br>
+            <br>
+
+            <div class="form-group" ng-if="exists">
+                <h2>Détails de la compétition en cours</h2>
+                <button ng-click="refresh()" class="button btn btn-primary">Rafraichir</button>
+                <br>
+                <p>number of competitions : {{details.number}}</p>
+                <p>address of the last one : {{details.address}}</p>
+            </div>
+
+
+  </div>
+</div>

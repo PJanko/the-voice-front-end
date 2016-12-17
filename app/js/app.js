@@ -1,6 +1,7 @@
 
 var factory;
 var competition;
+var accounts;
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 // Angular Module Declaration For the application
@@ -30,6 +31,10 @@ angular.module("TheVoice").config(["$routeProvider", function($routeProvider) {
         templateUrl : "singer.html",
         controller  : "SingerController"
       })
+      .when("/admin", {
+        templateUrl : "admin.html",
+        controller  : "AdminController" 
+      })
 
       .otherwise({
         redirectTo: "/"
@@ -37,6 +42,17 @@ angular.module("TheVoice").config(["$routeProvider", function($routeProvider) {
 
 }]);
 
+angular.module('TheVoice').run(function($rootScope) {
+  if (typeof web3 !== 'undefined') {
+    web3 = new Web3(web3.currentProvider);
+  } else {
+    // set the provider you want from Web3.providers
+    web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+  }
+});
+
+
+/*
 function test(){
   /*var factory = CompetitionFactory.deployed();
   factory.testcomp.call({ from: accounts[0],gas:500000 }).then(function(o) {
@@ -44,7 +60,7 @@ function test(){
     console.log(o.valueOf());
     }).catch(function(e) {
     console.log(e);
-  });*/
+  });
   var comp1 = Competition.at(competition);
 };
 
@@ -59,34 +75,4 @@ function refreshBalance() {
     console.log(e);
   });
 };
-
-window.onload = function() {
-
-  web3.eth.getAccounts(function(err, accs) {
-    if (err != null) {
-      console.log(err);
-      alert("There was an error fetching your accounts.");
-      return;
-    }
-
-    if (accs.length == 0) {
-      alert("Couldn't get any accounts! Make sure your Ethereum client is configured correctly.");
-      return;
-    }
-
-    accounts = accs;
-    account = accounts[1];
-
-    var factory = CompetitionFactory.deployed();
-    var test_result = 2;
-    factory.AddCompetition(1,10,15,{ from: accounts[0],gas:5000000}).then(function(a) {
-      console.log("1");
-      console.log(a);
-      console.log("-----------------");
-    }).catch(function(e){
-        console.log(e);
-    });
-
-  });
-}
-
+*/
