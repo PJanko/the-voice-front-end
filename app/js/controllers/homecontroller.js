@@ -1,7 +1,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 // Home Controller
 ///////////////////////////////////////////////////////////////////////////////
-angular.module("TheVoice").controller("HomeController", ["$scope", "$rootScope", "EthereumFactory", "ToolFactory", 
+angular.module("TheVoice").controller("HomeController", ["$scope", "$rootScope", "EthereumFactory", "ToolFactory",
 	function($scope,$rootScope, EthereumFactory, ToolFactory){
 
 	console.log("Entered HomeController");
@@ -9,7 +9,7 @@ angular.module("TheVoice").controller("HomeController", ["$scope", "$rootScope",
 	///////////////////////////////////////////////////////////////////////
 	// Initialisation Code for Home Controller
 	///////////////////////////////////////////////////////////////////////
-	
+
 	$scope.singers = EthereumFactory.getSingers();
 
 	$scope.singers.forEach(function(singer) {
@@ -17,5 +17,5 @@ angular.module("TheVoice").controller("HomeController", ["$scope", "$rootScope",
 	});
 
 	$scope.addCompetition = EthereumFactory.createCompetition;
-	
+
 }]);

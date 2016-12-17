@@ -17,7 +17,7 @@ angular.module("TheVoice").controller("AdminController", ["$scope", "$rootScope"
 	} else {
 		$scope.exists = false;
 	}
-	
+
 	EthereumFactory.getAccounts(function(accounts) {
 		$scope.accounts = accounts;
 	});
@@ -27,7 +27,7 @@ angular.module("TheVoice").controller("AdminController", ["$scope", "$rootScope"
 	$scope.createFactory = function() {
 		if(!$scope.adminSelected) return alert("Vous devez choisir l'administrateur de la Factory");
 		EthereumFactory.createFactory($scope.adminSelected, function() {
-			
+
 		});
 	}
 
@@ -38,7 +38,7 @@ angular.module("TheVoice").controller("AdminController", ["$scope", "$rootScope"
 		var cloture = convertDateToTimestamp($('#cloture').val());
 
 		if( ! (inscrire && vote && cloture) ) return alert("Vous devez renseigner toutes les dates");
-		
+
 		EthereumFactory.createCompetition($scope.adminSelected, inscrire, vote, cloture, function(err, instance) {
 			refreshDetails();
 		});

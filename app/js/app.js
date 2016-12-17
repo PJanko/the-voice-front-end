@@ -33,9 +33,12 @@ angular.module("TheVoice").config(["$routeProvider", function($routeProvider) {
       })
       .when("/admin", {
         templateUrl : "admin.html",
-        controller  : "AdminController" 
+        controller  : "AdminController"
       })
-
+      .when("/reward", {
+        templateUrl : "reward.html",
+        controller  : "RewardController"
+      })
       .otherwise({
         redirectTo: "/"
       });

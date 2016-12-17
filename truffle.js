@@ -5,6 +5,8 @@ module.exports = {
     "singer.html": "singer.html",
     "form.html": "form.html",
     "admin.html": "admin.html",
+    "reward.html": "reward.html",
+
 
 
     "app.js": [
@@ -19,6 +21,7 @@ module.exports = {
       "js/vendors/main.js",
       "js/app.js",
       "js/controllers/homecontroller.js",
+      "js/controllers/rewardcontroller.js",
       "js/controllers/singercontroller.js",
       "js/controllers/formcontroller.js",
       "js/controllers/admincontroller.js",
