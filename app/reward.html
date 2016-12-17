@@ -1,0 +1,32 @@
+<div id="footer-wrapper">
+  <div id="footer" class="col-md-6 col-md-offset-3 container">
+
+    <h2>Formulaire de récupération des gains</h2>
+
+    <label for="accounts">Choisir l'adresse de récupération</label>
+        <select name="accounts" style="width:300px;" ng-model="adminSelected">
+            <option ng-repeat="account in accounts" value="{{account}}">{{account}}</option>
+        </select>
+
+
+        <label for="compet">Choisir la competition</label>
+            <select name="compet" style="width:300px;" ng-model="competSelected">
+                <option value="{{details.address}}">{{details.address}}</option>
+            </select>
+
+        <div class="form-actions">
+            <button type="submit" class="button btn btn-primary">Récupérer vos gains</button>
+        </div>
+
+    </form>
+
+    <div class="form-group" ng-if="exists">
+        <h2>Détails de la compétition en cours</h2>
+        <button ng-click="refresh()" class="button btn btn-primary">Rafraichir</button>
+        <br>
+        <p>number of competitions : {{details.number}}</p>
+        <p>address of the last one : {{details.address}}</p>
+    </div>
+
+      </div>
+    </div>
