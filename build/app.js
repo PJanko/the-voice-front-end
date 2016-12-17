@@ -47475,31 +47475,36 @@ angular.module("TheVoice").factory("EthereumFactory",['$window', function($windo
 		showNewSinger : function(address) {
 			var factory= CompetitionFactory.deployed();
 
-			factory.getCompetition.call(0,{ from: address }).then(function(comp) {
-         	//factory.testcomp.call({ from: accounts[0],gas:500000 }).then(function(o) {
-         	//factory.testreturn.call({ from: accounts[0],gas:500000 }).then(function(o) {
-         		//var lol = o.c[0];
-	          //  console.log("4");
-	            //console.log(lol);
+			var promise = factory.getCompetitionsLength.call();
+			promise.then(function(instance) {
+				factory.getCompetition.call(instance.toNumber()-1,{ from: address }).then(function(comp) {
+	         	//factory.testcomp.call({ from: accounts[0],gas:500000 }).then(function(o) {
+	         	//factory.testreturn.call({ from: accounts[0],gas:500000 }).then(function(o) {
+	         		//var lol = o.c[0];
+		          //  console.log("4");
+		            //console.log(lol);
 
-				var comp1 = Competition.at(comp);
-   
-				comp1.getNumberArtists.call().then(function(o) {
-			      console.log("got");
-			      console.log(o.valueOf());
+					var comp1 = Competition.at(comp);
+	   
+					comp1.getNumberArtists.call().then(function(o) {
+				      console.log("got");
+				      console.log(o.valueOf());
 
-			      for (var i = 0; i < o.valueOf(); i++) {
-			      	comp1.getArtist.call(i,{ from: address,gas:500000 }).then(function(o) {
-				      //console.log("got");
-				      console.log(o);
+				      for (var i = 0; i < o.valueOf(); i++) {
+				      	comp1.getArtist.call(i,{ from: address,gas:500000 }).then(function(o) {
+					      //console.log("got");
+					      console.log(o);
+					    }).catch(function(e) {
+					      console.log(e);
+					    });	 
+				      };
 				    }).catch(function(e) {
 				      console.log(e);
-				    });	 
-			      };
-			    }).catch(function(e) {
-			      console.log(e);
-			    });	           
-	        }).catch(function(e) {
+				    });	           
+		        }).catch(function(e) {
+		            console.log(e);
+		        });	        
+	    	}).catch(function(e) {
 	            console.log(e);
 	        });
 
@@ -47529,26 +47534,32 @@ angular.module("TheVoice").factory("EthereumFactory",['$window', function($windo
     		var factory= CompetitionFactory.deployed();
 		    //factory.testadd({ from: accounts[0],gas:500000}).then(function(a) {
 
-		    console.log(address);
-		    factory.getCompetition.call(0,{ from: address,gas:500000 }).then(function(comp){
-				console.log("comp");
 
-				console.log(comp);
-				//var comp1 = Competition.at(comp);
-				var comp1 = Competition.at(comp);
-				console.log("comp1");
+			var promise = factory.getCompetitionsLength.call();
+			promise.then(function(instance) {
+				factory.getCompetition.call(instance.toNumber()-1,{ from: address,gas:500000 }).then(function(comp){
+					console.log("comp");
 
-				console.log(comp1);
-				
-				//comp1.AddArtist(nom,description,id,{ from: accounts[0],gas:500000 }).then(function(o) {
-				Competition.at(comp).AddArtist(nom,description,id,{ from: address,gas:500000 }).then(function(o) {
-			      console.log("added");
-			    }).catch(function(e) {
+					console.log(comp);
+					//var comp1 = Competition.at(comp);
+					var comp1 = Competition.at(comp);
+					console.log("comp1");
+
+					console.log(comp1);
+					
+					//comp1.AddArtist(nom,description,id,{ from: accounts[0],gas:500000 }).then(function(o) {
+					Competition.at(comp).AddArtist(nom,description,id,{ from: address,gas:500000 }).then(function(o) {
+				      console.log("added");
+				    }).catch(function(e) {
+				      	console.log(e);
+				    });
+				}).catch(function(e) {
 			      	console.log(e);
 			    });
 			}).catch(function(e) {
-		      	console.log(e);
-		    });
+				console.log(e);
+				cb(e);
+			});
 
 
 
