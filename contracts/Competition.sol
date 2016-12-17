@@ -84,7 +84,8 @@ contract Competition {
     }
     
     function AddArtist(string _nom,string _description,string _url) beforeDeadlineParier isNotStarted {
-        //if(address_artists[msg.sender]) throw;
+        if(address_artists[msg.sender]) throw;
+        
         artists.push(Artist(msg.sender,_nom,_description,_url,false,0));
         address_artists[msg.sender] = true;
         index_artists[_nom] = artists.length - 1;

@@ -1,0 +1,51 @@
+
+
+
+<!-- Footer -->
+	<div id="player"></div>
+
+	<ng-youtube-embed url="singer.url" autoplay="true" width="{{width}}" height="{{height}}"></ng-youtube-embed>
+	
+	<div id="footer-wrapper">
+		<div id="footer" class="container">
+			
+			<div class="row">
+				<section class="8u 12u(narrower)">
+					<div class="row 0%">
+						<div class="12u">
+							<h1>{{singer.name}}</h1>
+							<p>{{singer.description}}</p>
+							<br/>
+							<ul class="icons">
+								<li class="icon fa-youtube"><a href="{{singer.url}}"><span class="extra">youtube.com/</span>{{singer.name}}</a></li>
+							</ul>
+						</div>
+					</div>
+				</section>
+				<section class="4u 12u(narrower)">
+					<form ng-submit="vote()" >
+						<div class="row 0%">
+							<div class="12u">
+								<input name="secret" placeholder="Secret" ng-model="secret" type="password" />
+								<input name="amount" placeholder="Montant (ETH)" ng-model="amount" type="text" />
+							
+								<ul class="actions">
+									<li><input type="submit" value="Voter pour {{singer.name}}!!" /></li>
+								</ul>
+							</div>
+						</div>
+					</form>
+				</section>
+			</div>
+		</div>
+		<div>
+		
+		<div id="copyright" class="container">
+			<ul class="menu">
+				<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+			</ul>
+		</div>
+
+
+	</div>
+</div>
