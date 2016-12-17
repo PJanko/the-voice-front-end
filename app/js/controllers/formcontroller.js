@@ -23,9 +23,8 @@ angular.module("TheVoice").controller("FormController", ["$scope", "$rootScope",
 
   }
 	$scope.show = function() {
-	if(!$scope.adminSelected) return alert("Vous devez choisir l'adresse du chanteur");
 
-    EthereumFactory.showNewSinger($scope.adminSelected);
+    EthereumFactory.showNewSinger();
 
   }
 }]);

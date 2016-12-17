@@ -47053,7 +47053,37 @@ angular.module('TheVoice').run(function($rootScope) {
   }
 });
 
+function asyncLoop(iterations, func, callback) {
+    var index = 0;
+    var done = false;
+    var loop = {
+        next: function() {
+            if (done) {
+                return;
+            }
 
+            if (index < iterations) {
+                index++;
+                func(loop);
+
+            } else {
+                done = true;
+                callback();
+            }
+        },
+
+        iteration: function() {
+            return index - 1;
+        },
+
+        break: function() {
+            done = true;
+            callback();
+        }
+    };
+    loop.next();
+    return loop;
+}
 /*
 function test(){
   /*var factory = CompetitionFactory.deployed();
@@ -47154,9 +47184,8 @@ angular.module("TheVoice").controller("FormController", ["$scope", "$rootScope",
 
   }
 	$scope.show = function() {
-	if(!$scope.adminSelected) return alert("Vous devez choisir l'adresse du chanteur");
 
-    EthereumFactory.showNewSinger($scope.adminSelected);
+    EthereumFactory.showNewSinger();
 
   }
 }]);
@@ -47262,7 +47291,7 @@ angular.module("TheVoice").factory("ToolFactory", function(){
 });
 
 
-
+var tang= [];
 var db = {
 	singers : [
 		{
@@ -47449,7 +47478,46 @@ angular.module("TheVoice").factory("EthereumFactory",['$window', function($windo
 
 		// Récupère tous les Singers pour une campagne
 		getSingers : function() {
-			return _.map(db.singers, _.clone);//_.extends([], db.singers);
+			tang=[];
+			console.log(_.map(db.singers, _.clone));
+			return _.map(db.singers, _.clone);
+/*
+			var factory= CompetitionFactory.deployed();
+
+			var promise = factory.getCompetitionsLength.call();
+			promise.then(function(instance) {
+				factory.getCompetition.call(instance.toNumber()-1).then(function(comp) {
+					var comp1 = Competition.at(comp);
+	   
+					comp1.getNumberArtists.call().then(function(o) {
+				      	for (var i = 0; i < o.valueOf(); i++) {
+					      	comp1.getArtist.call(i).then(function(o) {
+							    tang.push({
+							      	'name' : o[0],
+							      	'video-id' : o[1],
+							      	'id' :  o[3]
+							    });	
+								console.log(tang);
+    						    return(tang);
+						    }).catch(function(e) {
+						      	console.log(e);
+						    });
+				      	}
+				    }).catch(function(e) {
+				      console.log(e);
+				    });	           
+		        }).catch(function(e) {
+		            console.log(e);
+		        });	        
+	    	}).catch(function(e) {
+	            console.log(e);
+	        });*/
+	    	/*
+			console.log(_.map(db.singers, _.clone));
+			console.log(tang);
+
+			return _.map(db.singers, _.clone);//_.extends([], db.singers);*/
+
 		},
 
 		// Récupère un chanteur dans la blockchain
@@ -47458,6 +47526,8 @@ angular.module("TheVoice").factory("EthereumFactory",['$window', function($windo
 			return singers.find(function(singer) {
 				return singer.id == id;
 			});
+
+
 		},
 
 		voteForSinger : function(singer, secret, amount) {
@@ -47472,27 +47542,17 @@ angular.module("TheVoice").factory("EthereumFactory",['$window', function($windo
 					});
 				},*/
 
-		showNewSinger : function(address) {
+		showNewSinger : function() {
 			var factory= CompetitionFactory.deployed();
 
 			var promise = factory.getCompetitionsLength.call();
 			promise.then(function(instance) {
-				factory.getCompetition.call(instance.toNumber()-1,{ from: address }).then(function(comp) {
-	         	//factory.testcomp.call({ from: accounts[0],gas:500000 }).then(function(o) {
-	         	//factory.testreturn.call({ from: accounts[0],gas:500000 }).then(function(o) {
-	         		//var lol = o.c[0];
-		          //  console.log("4");
-		            //console.log(lol);
-
+				factory.getCompetition.call(instance.toNumber()-1).then(function(comp) {
 					var comp1 = Competition.at(comp);
 	   
 					comp1.getNumberArtists.call().then(function(o) {
-				      console.log("got");
-				      console.log(o.valueOf());
-
 				      for (var i = 0; i < o.valueOf(); i++) {
-				      	comp1.getArtist.call(i,{ from: address,gas:500000 }).then(function(o) {
-					      //console.log("got");
+				      	comp1.getArtist.call(i).then(function(o) {
 					      console.log(o);
 					    }).catch(function(e) {
 					      console.log(e);
